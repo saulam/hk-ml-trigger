@@ -1,0 +1,76 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+*.egg
+dist/
+build/
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Data
+data/
+
+# Logs and outputs
+logs/
+lightning_logs/
+experiments/
+runs/
+results/
+outputs/
+*.log
+
+# Checkpoints and model weights
+checkpoints/
+*.ckpt
+*.pt
+*.pth
+*.pth.tar
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+
+# Images and media
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+*.svg
+*.tiff
+
+# Jupyter notebooks
+*.ipynb
+.ipynb_checkpoints/
+
+# PDFs
+*.pdf
+
+# Sweep / debug artefacts
+sweep_analysis/
+*.csv
+
+# TensorBoard
+tb_logs/
+
+# Temporary files
+*.tmp
+tmp/
+temp/

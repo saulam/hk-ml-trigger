@@ -1,0 +1,92 @@
+data:
+  augmentations: true
+  batch_size: 512
+  data_path: /path/to/wcsim_numpy
+  feature_mode: no_charge
+  num_workers: 16
+  test_mode: mixed
+  time_range: null
+  train_mode: background
+  train_split: 0.8
+model:
+  ae_loss: chamfer
+  decoder_dropout: 0.0
+  decoder_memory_tokens: 4
+  decoder_num_heads: 8
+  decoder_num_layers: 3
+  decoder_seed_dim: 3
+  encoder_dropout: 0.0
+  encoder_energy_mlp_hidden: null
+  encoder_latent_dim: 128
+  encoder_num_heads: 8
+  encoder_num_layers: 4
+  encoding_noise: null
+  energy_dropout: 0.0
+  energy_hidden_dim: 128
+  energy_net_type: transformer
+  energy_num_heads: 8
+  energy_num_layers: 4
+  max_output_points: 192
+  repulsion_weight: 0.02
+  spherical: true
+mpdr:
+  alphas:
+  - 5.0
+  - 30.0
+  - 120.0
+  energy_method: null
+  gamma_neg_recon: null
+  gamma_vx: 0.0001
+  grad_clip_off: 5.0
+  grad_clip_omi: 1.0
+  l2_norm_reg_netx: 0.0001
+  lambda_center: 0.0001
+  mcmc_bound_x: null
+  mcmc_custom_stepsize: false
+  mcmc_n_step_omi: 2
+  mcmc_n_step_x: 10
+  mcmc_noise_omi: 0.01
+  mcmc_noise_x: 0.02
+  mcmc_normalize_omi: false
+  mcmc_stepsize_omi: 0.01
+  mcmc_stepsize_x: 80.0
+  mh_omi: false
+  mh_x: false
+  physics_noise_ratio: 0.3
+  proj_const: 0.1
+  proj_const_omi: 0.1
+  proj_dist: geodesic
+  proj_mode: uniform
+  proj_noise_end: 0.15
+  proj_noise_start: 0.06
+  tau: 10.0
+  temperature: 0.8
+  temperature_omi: 1.0
+  variant: simple
+name: mpdr_simple_hk_trigger
+output_dir: experiments
+training:
+  ae_lr: 0.0001
+  ae_weight_decay: 0.0001
+  alphas:
+  - 5.0
+  - 30.0
+  - 120.0
+  clip_grad: 1.0
+  device: cuda
+  early_stopping_patience: 50
+  energy_lr: 5.0e-05
+  energy_weight_decay: 0.0
+  eval_every: 5
+  gpu_ids:
+  - 0
+  - 1
+  lr_decay_epochs: []
+  lr_decay_factor: 0.2
+  phase1_epochs: 200
+  phase2_epochs: 50
+  save_every: 10
+  seed: 42
+  use_scheduler: true
+  use_warmup: true
+  warmup_epochs: 5
