@@ -248,3 +248,7 @@ tensorboard --logdir experiments/
     year    = {2026},
 }
 ```
+
+## License
+
+This project is released under the [MIT License](LICENSE).
