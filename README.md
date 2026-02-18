@@ -1,6 +1,6 @@
-# Machine Learning Trigger for Hyper-Kamiokande
+# Deep Learning Trigger for Hyper-Kamiokande
 
-Code accompanying the paper *Machine Learning-Based Triggering for the Hyper-Kamiokande Experiment*.
+Code accompanying the paper *Deep-learning-based low-energy trigger algorithms\\for the Hyper-Kamiokande experiment*.
 
 Two complementary approaches for event classification in a large water-Cherenkov detector:
 
@@ -98,7 +98,7 @@ Organise files under a single root directory; the data loaders search recursivel
 
 ## Supervised Classifier
 
-A 12-layer transformer with relative positional self-attention operating on cylindrical PMT coordinates encoded via Fourier features.
+A transformer encoder with relative positional self-attention operating on cylindrical PMT coordinates encoded via Fourier features.
 
 ### Training
 
@@ -244,7 +244,7 @@ tensorboard --logdir experiments/
 
 ```bibtex
 @article{hk_ml_trigger,
-    title   = {Machine Learning-Based Triggering for the Hyper-Kamiokande Experiment},
-    year    = {2025},
+    title   = {Deep-learning-based low-energy trigger algorithms\\for the Hyper-Kamiokande experiment},
+    year    = {2026},
 }
 ```
