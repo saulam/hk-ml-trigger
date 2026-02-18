@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Example training script for the supervised transformer classifier.
-# Adjust paths and hyperparameters as needed.
+# Train the event-level transformer classifier.
+# Produces a single label per event (signal vs background).
 
 ROOT_PATH="/path/to/wcsim_numpy"
 DATA_PATTERN="/*signoise*"
@@ -9,7 +9,7 @@ DATA_PATTERN="/*signoise*"
 LOG_DIR="logs/logs"
 TB_LOG_DIR="logs/tb_logs"
 CHECKPOINT_DIR="checkpoints"
-LOG_NAME="hk_run"
+LOG_NAME="event_level"
 
 FEATURE_MODE="no_time_no_charge"
 BATCH_SIZE=256

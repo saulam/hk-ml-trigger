@@ -26,7 +26,8 @@ hk-ml-trigger/
 │   │   └── __init__.py
 │   ├── train/
 │   │   └── train.py            # Training entry point
-│   └── train_all.sh            # Example training script
+│   ├── train_event_level.sh    # Event-level classification
+│   └── train_hit_level.sh      # Hit-level (per-PMT) classification
 │
 ├── anomaly_detection/          # MPDR anomaly detection
 │   ├── models/
@@ -98,42 +99,62 @@ Organise files under a single root directory; the data loaders search recursivel
 
 ## Supervised Classifier
 
-A transformer encoder with relative positional self-attention operating on cylindrical PMT coordinates encoded via Fourier features.
+A transformer encoder with relative positional self-attention operating on cylindrical PMT coordinates encoded via Fourier features. Two classification modes are supported:
+
+- **Event-level** (default) — classifies the entire event as signal or background using the CLS token representation.
+- **Hit-level** (`--token_level`) — produces a per-PMT-hit label, classifying each hit individually as signal (Cherenkov) or background (dark noise).
 
 ### Training
 
 ```bash
 cd supervised
 
+# Event-level classifier
 python train/train.py \
     --root_path /path/to/wcsim_numpy \
-    --feature_mode no_charge \
+    --feature_mode no_time_no_charge \
     --batch_size 256 \
-    --max_epochs 30 \
-    --gpus 1 \
-    --precision bf16-mixed
+    --epochs 50 \
+    --gpus 0 1
+
+# Hit-level classifier
+python train/train.py \
+    --root_path /path/to/wcsim_numpy \
+    --feature_mode no_time_no_charge \
+    --batch_size 256 \
+    --epochs 50 \
+    --gpus 0 1 \
+    --token_level
 ```
 
 #### Arguments
 
-| Argument          | Default      | Description                                              |
-|-------------------|-------------|----------------------------------------------------------|
-| `--root_path`     | *(required)* | Root directory containing `.npz` data files              |
-| `--feature_mode`  | `all`        | Feature set: `all`, `no_time`, `no_charge`, `no_time_no_charge` |
-| `--batch_size`    | `256`        | Batch size per GPU                                       |
-| `--max_epochs`    | `30`         | Maximum training epochs                                  |
-| `--gpus`          | `1`          | Number of GPUs                                           |
-| `--precision`     | `bf16-mixed` | Training precision (`32`, `16-mixed`, `bf16-mixed`)      |
-| `--lr`            | `1e-4`       | Learning rate                                            |
-| `--num_workers`   | `8`          | Data loader workers                                      |
-| `--patience`      | `3`          | Early stopping patience                                  |
-| `--l2_lambda`     | `0.01`       | Weight decay                                             |
-| `--warmup_steps`  | `500`        | Linear warmup steps                                      |
+| Argument           | Default              | Description                                              |
+|--------------------|---------------------|----------------------------------------------------------|
+| `--root_path`      | *(required)*         | Root directory containing `.npz` data files              |
+| `--feature_mode`   | `no_time_no_charge`  | Feature set: `all`, `no_time`, `no_charge`, `no_time_no_charge` |
+| `--token_level`    | `False`              | Enable hit-level classification (per-PMT labels)         |
+| `--batch_size`     | `256`                | Batch size per GPU                                       |
+| `--epochs`         | `50`                 | Maximum training epochs                                  |
+| `--gpus`           | `0`                  | GPU IDs (multiple GPUs enable DDP)                       |
+| `--lr`             | `1e-4`               | Learning rate (scaled by effective batch size)            |
+| `--d_model`        | `192`                | Transformer embedding dimension                          |
+| `--nhead`          | `12`                 | Number of attention heads                                |
+| `--num_layers`     | `12`                 | Number of transformer layers                             |
+| `--dropout`        | `0.1`                | Dropout rate                                             |
+| `--num_workers`    | `16`                 | Data loader workers                                      |
+| `--train_split`    | `0.95`               | Fraction of data used for training                       |
+| `--warmup_steps`   | `1`                  | Warmup epochs                                            |
+| `--compile`        | `False`              | Use `torch.compile` (PyTorch 2.0+)                       |
 
-### Example
+### Quick Start
 
 ```bash
-bash train_all.sh
+# Event-level classifier
+bash train_event_level.sh
+
+# Hit-level classifier
+bash train_hit_level.sh
 ```
 
 ---
