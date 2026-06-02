@@ -264,9 +264,14 @@ tensorboard --logdir experiments/
 ## Citation
 
 ```bibtex
-@article{hk_ml_trigger,
-    title   = {Deep-learning-based low-energy trigger algorithms\\for the Hyper-Kamiokande experiment},
-    year    = {2026},
+@misc{lachner2026deeplearningbasedlowenergytriggeralgorithms,
+      title={Deep-learning-based low-energy trigger algorithms for the Hyper-Kamiokande experiment}, 
+      author={Katharina Lachner and Saúl Alonso-Monsalve and Benjamin Richards and Davide Sgalaberna},
+      year={2026},
+      eprint={2605.31391},
+      archivePrefix={arXiv},
+      primaryClass={physics.ins-det},
+      url={https://arxiv.org/abs/2605.31391}, 
 }
 ```
 
